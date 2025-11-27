@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Panier - Sillage d'Or</title>
+    <link rel="stylesheet" href="parfum.css"> </head>
+<body>
+    <header class="main-header">
+        <div class="logo"><h1>Sillage d'Or</h1></div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.php">Accueil</a></li>
+                <li><a href="catalogue.php">Collections</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="mon-compte.php">Compte</a>
+            <a href="panier.html">Panier (0)</a>
+        </div>
+    </header>
+
+    <main class="panier-page">
+        <div class="container">
+            <h2>Mon Panier</h2>
+            
+            <div class="cart-layout">
+                
+                <div class="cart-items-list">
+                    <p id="empty-cart-message" style="text-align: center; font-style: italic;">Votre panier est vide.</p>
+                </div>
+
+                <div class="cart-summary">
+                    <h3>Récapitulatif de la Commande</h3>
+                    
+                    <div class="summary-details">
+                        <p>Sous-total : <span id="subtotal">0,00 €</span></p>
+                        <p>Livraison : <span id="shipping-cost">Gratuite</span></p>
+                        <hr>
+                        <h4>Total (TTC) : <span id="total-amount">0,00 €</span></h4>
+                    </div>
+
+                    <a href="checkout.html" id="checkout-btn" class="btn-primary" style="width: 100%;">Passer à la Caisse</a>
+                    <a href="catalogue.php" class="btn-secondary" style="width: 100%; margin-top: 10px;">Continuer mes achats</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

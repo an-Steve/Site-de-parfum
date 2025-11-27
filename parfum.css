@@ -1,0 +1,381 @@
+/* Importation de police : Exemple avec Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+/* Réinitialisation de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333; /* Texte sombre */
+    background-color: #f8f8f8; /* Fond légèrement cassé */
+}
+
+a {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #a00; /* Une couleur d'accent pour le survol, comme un bordeaux élégant */
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    color: #222;
+    margin-bottom: 0.5em;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ======================= Header & Navigation ======================= */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.logo h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.main-nav ul {
+    display: flex;
+}
+
+.main-nav li {
+    margin: 0 15px;
+}
+
+.user-actions a {
+    margin-left: 20px;
+    font-size: 0.9em;
+}
+
+/* ======================= Bannière Héro (Hero) ======================= */
+.hero-section {
+    position: relative;
+    height: 600px; /* Hauteur de la bannière */
+    background: url('images/hero_background.jpg') center/cover no-repeat; /* REMPLACEZ CE LIEN PAR VOTRE IMAGE */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content h2 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* ======================= Boutons ======================= */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.9em;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #a00; /* Bordeaux élégant */
+    color: #fff;
+    border-color: #a00;
+}
+
+.btn-primary:hover {
+    background-color: #700;
+    border-color: #700;
+}
+
+.btn-secondary {
+    background-color: #fff;
+    color: #333;
+    border-color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+
+/* ======================= Section Produits ======================= */
+.featured-products {
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.featured-products h3 {
+    font-size: 2em;
+    margin-bottom: 40px;
+}
+
+.product-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    width: 300px; /* Largeur de la carte */
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.product-card h4 {
+    font-size: 1.5em;
+}
+
+.product-card .price {
+    display: block;
+    font-weight: 700;
+    margin: 10px 0;
+    color: #a00;
+}
+
+
+/* ======================= Footer ======================= */
+.main-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 40px 5%;
+    font-size: 0.9em;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #444;
+}
+
+.footer-col h4 {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col a {
+    color: #ccc;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.8em;
+}
+
+/* Media Query pour le Responsive (Mobile) */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .main-nav ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    .main-nav li {
+        margin: 5px 0;
+    }
+    .hero-content h2 {
+        font-size: 2.5em;
+    }
+    .footer-columns {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .product-card {
+        width: 100%;
+    }
+    /* ======================= Styles Page Panier ======================= */
+.panier-page {
+    padding: 40px 0;
+}
+
+.panier-page h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.cart-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start; /* Alignement en haut */
+}
+
+.cart-items-list {
+    flex-grow: 1; /* Prend l'espace restant */
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.cart-summary {
+    width: 350px;
+    flex-shrink: 0;
+    background: #f4f4f4;
+    padding: 30px;
+}
+
+.cart-summary h3 {
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.summary-details p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-details hr {
+    margin: 15px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.summary-details h4 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    color: #a00;
+}
+
+/* Style d'un article dans la liste */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.item-image {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.item-details {
+    flex-grow: 1;
+    min-width: 150px;
+}
+
+.item-details h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+}
+
+.item-price {
+    font-weight: 300;
+    font-size: 0.9em;
+}
+
+.item-quantity {
+    width: 80px;
+    text-align: center;
+}
+
+.item-quantity input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.item-total {
+    width: 100px;
+    text-align: right;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #a00;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 15px;
+}
+
+/* Responsive pour Mobile */
+@media (max-width: 768px) {
+    .cart-layout {
+        flex-direction: column;
+    }
+    
+    .cart-summary {
+        width: 100%;
+        order: -1; /* Placer le résumé en haut */
+        margin-bottom: 20px;
+    }
+    
+    .cart-item {
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    .item-image {
+        order: -1;
+        margin-bottom: 10px;
+    }
+
+    .item-details, .item-total, .item-quantity {
+        flex-grow: initial;
+        width: auto;
+        margin-right: 10px;
+    }
+    
+    .item-quantity input {
+        width: 40px;
+    }
+
+    .remove-item {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+    }
+}
+}

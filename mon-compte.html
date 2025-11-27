@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Compte - Sillage d'Or</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%);
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        .main-header {
+            background: linear-gradient(to right, #1a1a1a, #3d3d3d);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #d4af37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .account-page {
+            padding: 4rem 2rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .account-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .user-info {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 2rem;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .user-name {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: #f9f8f6;
+            color: #d4af37;
+            transform: translateX(5px);
+        }
+
+        .nav-link span {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #d4af37;
+            font-weight: 300;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: #fafafa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .info-card h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-secondary:hover {
+            background: #d4af37;
+            color: white;
+        }
+
+        .order-list {
+            margin-top: 2rem;
+        }
+
+        .order-item {
+            background: #fafafa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #d4af37;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+        }
+
+        .order-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .order-details {
+            color: #666;
+        }
+
+        .order-details p {
+            margin: 0.3rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .preferences-list {
+            margin-top: 1.5rem;
+        }
+
+        .preference-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #fafafa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .preference-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        .loyalty-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .loyalty-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .loyalty-title {
+            font-size: 1.5rem;
+            color: #d4af37;
+        }
+
+        .points-display {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .points-number {
+            font-size: 3rem;
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .points-label {
+            color: #ccc;
+            margin-top: 0.5rem;
+        }
+
+        .main-footer {
+            background: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 968px) {
+            .account-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .account-page {
+                padding: 2rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">Sillage d'Or</div>
+        <div class="tagline">L'art de la parfumerie française</div>
+    </header>
+
+    <main class="account-page">
+        <div class="container">
+            <h1 class="page-title">Mon Compte</h1>
+            
+            <div class="account-layout">
+                <aside class="sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">👤</div>
+                        <div class="user-name">Marie Dubois</div>
+                        <div class="user-email">marie.dubois@email.com</div>
+                    </div>
+                    
+                    <nav>
+                        <ul class="nav-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active" data-section="dashboard">
+                                    <span>🏠</span> Tableau de bord
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-section="orders">
+                                    <span>📦</span> Mes commandes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-section="profile">
+                                    <span>👤</span> Profil
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-section="addresses">
+                                    <span>📍</span> Adresses
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-section="loyalty">
+                                    <span>⭐</span> Programme fidélité
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-section="preferences">
+                                    <span>⚙️</span> Préférences
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" style="color: #c74c4c;">
+                                    <span>🚪</span> Déconnexion
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <div class="main-content">
+                    <!-- Dashboard Section -->
+                    <section id="dashboard" class="section active">
+                        <h2 class="section-title">Tableau de bord</h2>
+                        <p style="color: #666; margin-bottom: 2rem;">Bienvenue dans votre espace personnel Sillage d'Or</p>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>📦 Dernière commande</h3>
+                                <p><strong>N° CMD-2024-1156</strong></p>
+                                <p>Date : 15 novembre 2024</p>
+                                <p>Statut : <span style="color: #28a745; font-weight: 600;">Livrée</span></p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h3>⭐ Points fidélité</h3>
+                                <p><strong style="font-size: 2rem; color: #d4af37;">2,450</strong> points</p>
+                                <p>Prochain palier : 500 points</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h3>💝 Offre spéciale</h3>
+                                <p><strong>-15% sur votre prochain achat</strong></p>
+                                <p>Code : FIDELE15</p>
+                                <p style="font-size: 0.9rem;">Valable jusqu'au 31/12/2024</p>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" style="margin-right: 1rem;">Découvrir nos nouveautés</button>
+                        <button class="btn btn-secondary">Voir mes commandes</button>
+                    </section>
+
+                    <!-- Orders Section -->
+                    <section id="orders" class="section">
+                        <h2 class="section-title">Mes Commandes</h2>
+                        
+                        <div class="order-list">
+                            <div class="order-item">
+                                <div class="order-header">
+                                    <div>
+                                        <div class="order-number">Commande #CMD-2024-1156</div>
+                                        <div style="color: #666; font-size: 0.9rem;">15 novembre 2024</div>
+                                    </div>
+                                    <span class="order-status status-delivered">✓ Livrée</span>
+                                </div>
+                                <div class="order-details">
+                                    <p><strong>Produits :</strong> Eau de Parfum Ambre Royal 100ml</p>
+                                    <p><strong>Total :</strong> 145,00 €</p>
+                                    <p><strong>Livraison :</strong> 15 Rue de la Parfumerie, 75003 Paris</p>
+                                </div>
+                                <button class="btn btn-secondary" style="margin-top: 1rem;">Voir les détails</button>
+                            </div>
+
+                            <div class="order-item">
+                                <div class="order-header">
+                                    <div>
+                                        <div class="order-number">Commande #CMD-2024-1089</div>
+                                        <div style="color: #666; font-size: 0.9rem;">28 octobre 2024</div>
+                                    </div>
+                                    <span class="order-status status-processing">⏳ En préparation</span>
+                                </div>
+                                <div class="order-details">
+                                    <p><strong>Produits :</strong> Coffret Découverte 5 fragrances</p>
+                                    <p><strong>Total :</strong> 89,00 €</p>
+                                    <p><strong>Livraison :</strong> 15 Rue de la Parfumerie, 75003 Paris</p>
+                                </div>
+                                <button class="btn btn-secondary" style="margin-top: 1rem;">Suivre ma commande</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Profile Section -->
+                    <section id="profile" class="section">
+                        <h2 class="section-title">Mon Profil</h2>
+                        
+                        <form>
+                            <div class="info-grid">
+                                <div class="form-group">
+                                    <label for="prenom">Prénom</label>
+                                    <input type="text" id="prenom" value="Marie">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="nom">Nom</label>
+                                    <input type="text" id="nom" value="Dubois">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="marie.dubois@email.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telephone">Téléphone</label>
+                                <input type="tel" id="telephone" value="+33 6 12 34 56 78">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="birthdate">Date de naissance</label>
+                                <input type="date" id="birthdate" value="1990-05-15">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        </form>
+                    </section>
+
+                    <!-- Addresses Section -->
+                    <section id="addresses" class="section">
+                        <h2 class="section-title">Mes Adresses</h2>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>🏠 Adresse principale</h3>
+                                <p>Marie Dubois</p>
+                                <p>15 Rue de la Parfumerie</p>
+                                <p>75003 Paris, France</p>
+                                <p>+33 6 12 34 56 78</p>
+                                <button class="btn btn-secondary" style="margin-top: 1rem;">Modifier</button>
+                            </div>
+                            
+                            <div class="info-card" style="border-left-color: #ccc;">
+                                <h3>➕ Nouvelle adresse</h3>
+                                <p style="color: #999;">Ajoutez une adresse de livraison supplémentaire</p>
+                                <button class="btn btn-primary" style="margin-top: 1rem;">Ajouter</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Loyalty Section -->
+                    <section id="loyalty" class="section">
+                        <h2 class="section-title">Programme Fidélité</h2>
+                        
+                        <div class="loyalty-card">
+                            <div class="loyalty-header">
+                                <div class="loyalty-title">⭐ Membre Or</div>
+                                <div style="color: #ccc;">Depuis 2023</div>
+                            </div>
+                            
+                            <div class="points-display">
+                                <div class="points-number">2,450</div>
+                                <div class="points-label">Points disponibles</div>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-bottom: 1rem;">Avantages de votre statut</h3>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>🎁 Réductions exclusives</h3>
+                                <p>-15% toute l'année sur vos achats</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h3>📦 Livraison offerte</h3>
+                                <p>Dès 50€ d'achat</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h3>✨ Accès prioritaire</h3>
+                                <p>Aux nouvelles collections</p>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 2rem; color: #666;">
+                            <strong>Comment gagner des points ?</strong><br>
+                            • 1€ dépensé = 10 points<br>
+                            • Parrainage = 500 points<br>
+                            • Avis produit = 50 points
+                        </p>
+                    </section>
+
+                    <!-- Preferences Section -->
+                    <section id="preferences" class="section">
+                        <h2 class="section-title">Mes Préférences</h2>
+                        
+                        <h3 style="margin-bottom: 1rem;">Notifications</h3>
+                        <div class="preferences-list">
+                            <div class="preference-item">
+                                <input type="checkbox" id="newsletter" checked>
+                                <label for="newsletter" style="margin: 0;">Newsletter et offres exclusives</label>
+                            </div>
+                            
+                            <div class="preference-item">
+                                <input type="checkbox" id="order-updates" checked>
+                                <label for="order-updates" style="margin: 0;">Mises à jour de commandes</label>
+                            </div>
+                            
+                            <div class="preference-item">
+                                <input type="checkbox" id="new-products">
+                                <label for="new-products" style="margin: 0;">Nouveaux produits et collections</label>
+                            </div>
+                            
+                            <div class="preference-item">
+                                <input type="checkbox" id="tips" checked>
+                                <label for="tips" style="margin: 0;">Conseils et astuces parfumerie</label>
+                            </div>
+                        </div>
+
+                        <h3 style="margin: 2rem 0 1rem;">Mes notes préférées</h3>
+                        <div class="preferences-list">
+                            <div class="preference-item">
+                                <input type="checkbox" id="floral" checked>
+                                <label for="floral" style="margin: 0;">Floral</label>
+                            </div>
+                            
+                            <div class="preference-item">
+                                <input type="checkbox" id="woody" checked>
+                                <label for="woody" style="margin: 0;">Boisé</label>
+                            </div>
+                            
+                            <div class="preference-item">
+                                <input type="checkbox" id="oriental">
+                                <label for="oriental" style="margin: 0;">Oriental</label>
+                            </div>
+                            
+                            <div class="preference-item">
+                                <input type="checkbox" id="fresh">
+                                <label for="fresh" style="margin: 0;">Frais</label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" style="margin-top: 2rem;">Sauvegarder mes préférences</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Sillage d'Or - Tous droits réservés</p>
+            <p>L'élégance française au service de vos sens</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation entre les sections
+        const navLinks = document.querySelectorAll('.nav-link[data-section]');
+        const sections = document.querySelectorAll('.section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Retirer la classe active de tous les liens
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Ajouter la classe active au lien cliqué
+                link.classList.add('active');
+                
+                // Cacher toutes les sections
+                sections.forEach(s => s.classList.remove('active'));
+                
+                // Afficher la section correspondante
+                const sectionId = link.dataset.section;
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

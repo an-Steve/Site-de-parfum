@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toutes les Collections - Sillage d'Or</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5f3f0 0%, #e8e4df 100%);
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        .main-header {
+            background: linear-gradient(to right, #1a1a1a, #3d3d3d);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #d4af37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .catalogue-page {
+            padding: 4rem 2rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .filter-bar {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .result-count {
+            color: #d4af37;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-card h4 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .product-card h4 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .product-card h4 a:hover {
+            color: #d4af37;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            min-height: 2.8em;
+        }
+
+        .product-family {
+            display: inline-block;
+            background: #f9f8f6;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .btn-secondary {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            background: #d4af37;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .main-footer {
+            background: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content p {
+            margin: 0.5rem 0;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #d4af37;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 968px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            .filter-bar {
+                padding: 1.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 2rem;
+            }
+
+            .result-count {
+                width: 100%;
+                text-align: center;
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .catalogue-page {
+                padding: 2rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">Sillage d'Or</div>
+        <div class="tagline">L'art de la parfumerie française</div>
+    </header>
+
+    <main class="catalogue-page">
+        <div class="container">
+            <div class="page-header">
+                <h2>Toutes Nos Créations Olfactives</h2>
+                <p class="page-subtitle">Découvrez notre collection de parfums d'exception</p>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="famille">Famille Olfactive</label>
+                    <select name="famille" id="famille">
+                        <option value="">Toutes les familles</option>
+                        <option value="boise">Boisé</option>
+                        <option value="floral">Floral</option>
+                        <option value="oriental">Oriental</option>
+                        <option value="hesperide">Hespéridé</option>
+                        <option value="cuir">Cuiré</option>
+                        <option value="ambre">Ambré</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="genre">Genre</label>
+                    <select name="genre" id="genre">
+                        <option value="">Tous les genres</option>
+                        <option value="homme">Homme</option>
+                        <option value="femme">Femme</option>
+                        <option value="mixte">Mixte</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="prix">Trier par prix</label>
+                    <select name="prix" id="prix">
+                        <option value="">Par défaut</option>
+                        <option value="asc">Prix croissant</option>
+                        <option value="desc">Prix décroissant</option>
+                    </select>
+                </div>
+                <p class="result-count" id="resultCount">12 Parfums</p>
+            </div>
+
+            <section class="product-grid" id="productGrid">
+                <div class="product-card" data-famille="hesperide" data-genre="mixte" data-prix="85">
+                    <div class="product-image-container">
+                        <span class="product-badge">Nouveau</span>
+                        <img src="https://picsum.photos/seed/flacon4/300/400" alt="Flacon d'un parfum Hespéridé">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Fraîcheur d'Hespérides</a></h4>
+                        <span class="product-family">🍋 Hespéridé</span>
+                        <p class="product-description">Un éclat de bergamote et de citron vert, relevé par une touche de basilic frais.</p>
+                        <div class="product-footer">
+                            <span class="price">85 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="cuir" data-genre="homme" data-prix="135">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon5/300/400" alt="Flacon d'un parfum Cuiré">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Nuit de Cuir</a></h4>
+                        <span class="product-family">🧥 Cuiré</span>
+                        <p class="product-description">Cuir souple et notes d'épices chaudes pour une élégance masculine intemporelle.</p>
+                        <div class="product-footer">
+                            <span class="price">135 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="floral" data-genre="femme" data-prix="120">
+                    <div class="product-image-container">
+                        <span class="product-badge">Bestseller</span>
+                        <img src="https://picsum.photos/seed/flacon6/300/400" alt="Flacon d'un parfum Floral">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Rose Impériale</a></h4>
+                        <span class="product-family">🌹 Floral</span>
+                        <p class="product-description">Bouquet de roses de Grasse sublimé par des notes poudrées et musquées.</p>
+                        <div class="product-footer">
+                            <span class="price">120 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="oriental" data-genre="mixte" data-prix="145">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon7/300/400" alt="Flacon d'un parfum Oriental">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Oud Mystique</a></h4>
+                        <span class="product-family">🌙 Oriental</span>
+                        <p class="product-description">Oud précieux enrichi d'épices orientales et de résines envoûtantes.</p>
+                        <div class="product-footer">
+                            <span class="price">145 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="boise" data-genre="homme" data-prix="110">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon8/300/400" alt="Flacon d'un parfum Boisé">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Forêt de Santal</a></h4>
+                        <span class="product-family">🌲 Boisé</span>
+                        <p class="product-description">Santal crémeux, vétiver et cèdre pour une sophistication naturelle.</p>
+                        <div class="product-footer">
+                            <span class="price">110 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="floral" data-genre="femme" data-prix="95">
+                    <div class="product-image-container">
+                        <span class="product-badge">Nouveau</span>
+                        <img src="https://picsum.photos/seed/flacon9/300/400" alt="Flacon d'un parfum Floral">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Jardin de Pivoine</a></h4>
+                        <span class="product-family">🌸 Floral</span>
+                        <p class="product-description">Pivoine fraîche et litchi, une composition délicate et féminine.</p>
+                        <div class="product-footer">
+                            <span class="price">95 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="ambre" data-genre="mixte" data-prix="155">
+                    <div class="product-image-container">
+                        <span class="product-badge">Édition Limitée</span>
+                        <img src="https://picsum.photos/seed/flacon10/300/400" alt="Flacon d'un parfum Ambré">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Ambre Royal</a></h4>
+                        <span class="product-family">✨ Ambré</span>
+                        <p class="product-description">Ambre gris, vanille bourbon et labdanum pour un sillage majestueux.</p>
+                        <div class="product-footer">
+                            <span class="price">155 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="hesperide" data-genre="mixte" data-prix="90">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon11/300/400" alt="Flacon d'un parfum Hespéridé">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Zeste d'Été</a></h4>
+                        <span class="product-family">🍊 Hespéridé</span>
+                        <p class="product-description">Orange sanguine, pamplemousse rose et neroli pour un été éternel.</p>
+                        <div class="product-footer">
+                            <span class="price">90 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="boise" data-genre="femme" data-prix="125">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon12/300/400" alt="Flacon d'un parfum Boisé">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Ébène Précieux</a></h4>
+                        <span class="product-family">🪵 Boisé</span>
+                        <p class="product-description">Bois d'ébène, iris et musc blanc, une élégance raffinée.</p>
+                        <div class="product-footer">
+                            <span class="price">125 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="oriental" data-genre="femme" data-prix="140">
+                    <div class="product-image-container">
+                        <span class="product-badge">Bestseller</span>
+                        <img src="https://picsum.photos/seed/flacon13/300/400" alt="Flacon d'un parfum Oriental">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Sultane de Soie</a></h4>
+                        <span class="product-family">🌙 Oriental</span>
+                        <p class="product-description">Jasmin sambac, safran et vanille, un parfum envoûtant et sensuel.</p>
+                        <div class="product-footer">
+                            <span class="price">140 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="cuir" data-genre="mixte" data-prix="130">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon14/300/400" alt="Flacon d'un parfum Cuiré">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Cavalier Noir</a></h4>
+                        <span class="product-family">🧥 Cuiré</span>
+                        <p class="product-description">Cuir fumé, tabac blond et fève tonka pour une signature audacieuse.</p>
+                        <div class="product-footer">
+                            <span class="price">130 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-famille="floral" data-genre="mixte" data-prix="105">
+                    <div class="product-image-container">
+                        <img src="https://picsum.photos/seed/flacon15/300/400" alt="Flacon d'un parfum Floral">
+                    </div>
+                    <div class="product-info">
+                        <h4><a href="produit-star.html">Néroli Blanc</a></h4>
+                        <span class="product-family">🌼 Floral</span>
+                        <p class="product-description">Fleur d'oranger, néroli et musc, une pureté lumineuse.</p>
+                        <div class="product-footer">
+                            <span class="price">105 €</span>
+                            <a href="#" class="btn-secondary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Sillage d'Or - Tous droits réservés</p>
+            <p>L'élégance française au service de vos sens</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">📘</a>
+                <a href="#" aria-label="Instagram">📷</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const familleSelect = document.getElementById('famille');
+        const genreSelect = document.getElementById('genre');
+        const prixSelect = document.getElementById('prix');
+        const productGrid = document.getElementById('productGrid');
+        const resultCount = document.getElementById('resultCount');
+
+        function filterProducts() {
+            const familleValue = familleSelect.value;
+            const genreValue = genreSelect.value;
+            const cards = Array.from(productGrid.querySelectorAll('.product-card'));
+
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cardFamille = card.dataset.famille;
+                const cardGenre = card.dataset.genre;
+
+                const familleMatch = !familleValue || cardFamille === familleValue;
+                const genreMatch = !genreValue || cardGenre === genreValue;
+
+                if (familleMatch && genreMatch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            resultCount.textContent = `${visibleCount} Parfum${visibleCount > 1 ? 's' : ''}`;
+
+            // Tri par prix
+            if (prixSelect.value) {
+                const sortedCards = cards.sort((a, b) => {
+                    const priceA = parseInt(a.dataset.prix);
+                    const priceB = parseInt(b.dataset.prix);
+                    return prixSelect.value === 'asc' ? priceA - priceB : priceB - priceA;
+                });
+
+                sortedCards.forEach(card => productGrid.appendChild(card));
+            }
+        }
+
+        familleSelect.addEventListener('change', filterProducts);
+        genreSelect.addEventListener('change', filterProducts);
+        prixSelect.addEventListener('change', filterProducts);
+    </script>
+</body>
+</html>
