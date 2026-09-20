@@ -2,6 +2,8 @@
 
 <img width="1918" height="867" alt="image" src="https://github.com/user-attachments/assets/7c50057e-0d8c-4b8e-a34b-645a8f446c0e" />
 
+Liend d'accès au site : https://an-steve.github.io/Site-de-parfum/
+
 
 Bienvenue dans le dépôt du projet **Sillage d'Or**, une plateforme d'e-commerce simulant la vente de parfums de luxe.
 Ce projet a été conçu pour établir une base solide et professionnelle pour une boutique en ligne, en utilisant un mélange de PHP pour le contenu dynamique et de JavaScript pour l'interactivité côté client (panier).
