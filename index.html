@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sillage d'Or - Haute Parfumerie</title>
+    <style>
+        /* Styles de base et typographie */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; background-color: #f8f8f8; }
+        a { text-decoration: none; color: #555; transition: color 0.3s; }
+        a:hover { color: #a00; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: #222; margin-bottom: 0.5em; }
+        ul { list-style: none; }
+
+        /* Header & Navigation */
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: #fff; border-bottom: 1px solid #eee; }
+        .logo h1 { font-size: 1.8em; font-weight: 700; }
+        .main-nav ul { display: flex; }
+        .main-nav li { margin: 0 15px; }
+        .user-actions a { margin-left: 20px; font-size: 0.9em; }
+
+        /* Bannière Héro */
+        .hero-section { position: relative; height: 600px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); }
+        .hero-content h2 { font-size: 3.5em; margin-bottom: 10px; color: #fff; }
+        .hero-content p { font-size: 1.2em; margin-bottom: 30px; }
+
+        /* Boutons */
+        .btn-primary, .btn-secondary { display: inline-block; padding: 12px 30px; border: 1px solid transparent; text-transform: uppercase; font-weight: 700; font-size: 0.9em; transition: all 0.3s; cursor: pointer; }
+        .btn-primary { background-color: #a00; color: #fff; border-color: #a00; }
+        .btn-primary:hover { background-color: #700; border-color: #700; color: #fff; }
+        .btn-secondary { background-color: #fff; color: #333; border-color: #333; margin-top: 10px; }
+        .btn-secondary:hover { background-color: #333; color: #fff; }
+
+        /* Message de confirmation */
+        .cart-message { display: none; text-align: center; padding: 15px; background-color: #e6ffe6; color: #008000; font-weight: bold; }
+        .cart-message.visible { display: block; }
+
+        /* Section Produits */
+        .featured-products { padding: 60px 5%; text-align: center; }
+        .featured-products h3 { font-size: 2em; margin-bottom: 40px; }
+        .product-grid { display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap; }
+        .product-card { width: 300px; padding: 20px; background: #fff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); text-align: center; }
+        .product-card img { width: 100%; height: auto; margin-bottom: 15px; }
+        .product-card h4 { font-size: 1.5em; }
+        .product-card .price { display: block; font-weight: 700; margin: 10px 0; color: #a00; }
+
+        /* Footer */
+        .main-footer { background-color: #222; color: #ccc; padding: 40px 5%; text-align: center; font-size: 0.9em; }
+        .main-footer p { margin: 0; }
+
+        /* Media Query pour le Responsive (Mobile) */
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; text-align: center; }
+            .main-nav ul { flex-direction: column; padding: 10px 0; }
+            .main-nav li { margin: 5px 0; }
+            .hero-content h2 { font-size: 2.5em; }
+            .product-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo"><h1>Sillage d'Or</h1></div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="catalogue.html">Collections</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="mon-compte.html">Compte</a>
+            <a href="panier.html">Panier (0)</a>
+        </div>
+    </header>
+
+    <section class="hero-section" style="background-image: url('https://picsum.photos/seed/parfum1/1600/600');">
+        <div class="hero-content">
+            <h2>L'Élégance Capturée.</h2>
+            <p>Notre nouvelle collection est une ode aux matières premières les plus nobles.</p>
+            <a href="catalogue.html" class="btn-primary">Explorer les Parfums</a>
+        </div>
+    </section>
+
+    <div id="cart-message" class="cart-message" role="status" aria-live="polite"></div>
+
+    <section class="featured-products">
+        <h3>Nos Signatures Olfactives</h3>
+        <div class="product-grid" id="product-grid">
+            <!-- Les produits sont générés par le JavaScript ci-dessous -->
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <p>&copy; <span id="year"></span> Sillage d'Or. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // =======================================================
+        // PRODUITS (remplace le tableau PHP $products)
+        // =======================================================
+        const products = [
+            {
+                id: 1,
+                name: "L'Ambre Noir",
+                description: "Un sillage mystérieux de Santal et d'Encens.",
+                price: 120.00,
+                imageSeed: 'flacon1',
+                url: 'produit-star.html?id=1'
+            },
+            {
+                id: 2,
+                name: "Fleur de Nuit",
+                description: "Jasmin rare et Tubéreuse pour une féminité éclatante.",
+                price: 110.00,
+                imageSeed: 'flacon2',
+                url: 'produit-star.html?id=2'
+            },
+            {
+                id: 3,
+                name: "Vétiver Royal",
+                description: "Une fraîcheur verte et boisée pour l'homme moderne.",
+                price: 95.00,
+                imageSeed: 'flacon3',
+                url: 'produit-star.html?id=3'
+            }
+        ];
+
+        // Formate un prix à la française : 120,00 €
+        function formatPrice(value) {
+            return value.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+
+        // Affiche les cartes produits (remplace la boucle foreach PHP)
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card">
+                    <a href="${p.url}">
+                        <img src="https://picsum.photos/seed/${p.imageSeed}/300/400" alt="Flacon de ${p.name}">
+                        <h4>${p.name}</h4>
+                    </a>
+                    <p>${p.description}</p>
+                    <span class="price">${formatPrice(p.price)}</span>
+                    <button type="button" class="btn-secondary add-to-cart-js"
+                            data-product-name="${p.name.replace(/"/g, '&quot;')}"
+                            data-product-price="${p.price}">
+                        Ajouter au Panier
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // =======================================================
+        // PANIER (localStorage, même clé que vos autres pages)
+        // =======================================================
+        let cart = [];
+
+        function loadCart() {
+            try {
+                const storedCart = localStorage.getItem('sillageDorCart');
+                if (storedCart) {
+                    cart = JSON.parse(storedCart);
+                }
+            } catch (e) {
+                cart = [];
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('sillageDorCart', JSON.stringify(cart));
+        }
+
+        function getCartItemCount() {
+            return cart.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        function updateCartDisplay() {
+            const cartLink = document.querySelector('.user-actions a[href="panier.html"]');
+            if (cartLink) {
+                cartLink.textContent = `Panier (${getCartItemCount()})`;
+            }
+        }
+
+        function showMessage(text) {
+            const box = document.getElementById('cart-message');
+            box.textContent = text;
+            box.classList.add('visible');
+            clearTimeout(showMessage.timer);
+            showMessage.timer = setTimeout(() => box.classList.remove('visible'), 3000);
+        }
+
+        function addToCart(name, price, quantity = 1) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ name, price, quantity });
+            }
+            saveCart();
+            updateCartDisplay();
+            showMessage(`${name} ajouté au panier.`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            renderProducts();
+            loadCart();
+            updateCartDisplay();
+
+            document.querySelectorAll('.add-to-cart-js').forEach(button => {
+                button.addEventListener('click', () => {
+                    const name = button.getAttribute('data-product-name');
+                    const price = parseFloat(button.getAttribute('data-product-price'));
+                    if (name && !isNaN(price)) {
+                        addToCart(name, price);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
